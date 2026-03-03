@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameHub - ร้านเกมออนไลน์ชั้นนำของไทย</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Noto Sans Thai', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7b4397 100%);
+        }
+        
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transition: opacity 0.5s ease-in;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+        }
+        
+        .glow {
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+        }
+        
+        .glow:hover {
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.8);
+        }
+        
+        .search-box {
+            transition: all 0.3s ease;
+        }
+        
+        .search-box:focus {
+            width: 300px;
+        }
+        
+        .game-card {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .game-card:hover::before {
+            opacity: 1;
+        }
+        
+        .game-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            background: rgba(0,0,0,0.7);
+        }
+        
+        .game-card:hover .game-info {
+            transform: translateY(0);
+        }
+        
+        .platform-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .platform-icon:hover {
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Sticky Navigation -->
+    <nav id="navbar" class="bg-gray-800 shadow-lg fixed w-full z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="#" class="flex items-center">
+                        <i class="fas fa-gamepad text-blue-400 text-2xl mr-2"></i>
+                        <span class="font-bold text-xl bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">GameHub</span>
+                    </a>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-gray-300 hover:text-blue-400 transition duration-300">หน้าแรก</a>
+                    <a href="#featured" class="text-gray-300 hover:text-blue-400 transition duration-300">เกมแนะนำ</a>
+                    <a href="#categories" class="text-gray-300 hover:text-blue-400 transition duration-300">หมวดหมู่</a>
+                    <a href="#deals" class="text-gray-300 hover:text-blue-400 transition duration-300">โปรโมชั่น</a>
+                    <a href="#about" class="text-gray-300 hover:text-blue-400 transition duration-300">เกี่ยวกับเรา</a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <input type="text" id="searchInput" placeholder="ค้นหาเกม..." class="search-box bg-gray-700 text-white rounded-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-400 w-40">
+                        <button onclick="searchGames()" class="absolute right-3 top-2 text-gray-400 hover:text-white">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <a href="#" class="text-gray-300 hover:text-white">
+                        <i class="fas fa-shopping-cart text-xl relative">
+                            <span id="cartCount" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                        </i>
+                    </a>
+                    <button class="md:hidden text-gray-300 hover:text-white focus:outline-none" id="mobile-menu-button">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden bg-gray-800" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">หน้าแรก</a>
+                <a href="#featured" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">เกมแนะนำ</a>
+                <a href="#categories" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">หมวดหมู่</a>
+                <a href="#deals" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">โปรโมชั่น</a>
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">เกี่ยวกับเรา</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="gradient-bg pt-24 pb-16 md:pt-32 md:pb-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0 fade-in">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">พบกับเกมที่ดีที่สุด <span class="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">ในราคาสุดพิเศษ!</span></h1>
+                    <p class="text-xl text-gray-300 mb-8">GameHub นำเสนอเกมคุณภาพจากผู้พัฒนาชั้นนำทั่วโลก พร้อมบริการหลังการขายที่ยอดเยี่ยม</p>
+                    <div class="flex space-x-4">
+                        <a href="#featured" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-full transition duration-300 inline-flex items-center pulse">
+                            <i class="fas fa-gamepad mr-2"></i> ดูเกมทั้งหมด
+                        </a>
+                        <a href="#deals" class="bg-transparent hover:bg-gray-800 text-white font-bold py-3 px-6 rounded-full border-2 border-white transition duration-300 inline-flex items-center">
+                            <i class="fas fa-tag mr-2"></i> โปรโมชั่น
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 fade-in">
+                    <img src="https://images.unsplash.com/photo-1542751375-ad40-3ab31ab70919?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Gaming" class="rounded-lg shadow-2xl glow transform rotate-3">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Games -->
+    <section id="featured" class="py-16 bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-3xl font-bold mb-4">เกมแนะนำประจำสัปดาห์</h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">เกมยอดนิยมที่ผู้เล่นเลือกมากที่สุดในตอนนี้</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" id="gamesContainer">
+                <!-- Games will be loaded here by JavaScript -->
+            </div>
+            
+            <div class="text-center mt-12 fade-in">
+                <button onclick="loadMoreGames()" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-full transition duration-300 inline-flex items-center">
+                    <i class="fas fa-plus-circle mr-2"></i> โหลดเกมเพิ่มเติม
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parallax Section -->
+    <section class="parallax py-32" style="background-image: url('https://images.unsplash.com/photo-1542751375-ad40-3ab31ab70919?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold text-white mb-6">สมัครสมาชิกวันนี้ รับส่วนลดทันที 10%!</h2>
+            <p class="text-xl text-gray-300 mb-8">สำหรับสมาชิกใหม่เท่านั้น ใช้โค้ด <span class="font-bold text-yellow-300">WELCOME10</span> เมื่อชำระเงิน</p>
+            <button class="bg-white hover:bg-gray-100 text-blue-600 font-bold py-3 px-8 rounded-full transition duration-300 inline-flex items-center">
+                <i class="fas fa-user-plus mr-2"></i> สมัครสมาชิกฟรี
+            </button>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section id="categories" class="py-16 bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-3xl font-bold mb-4">หมวดหมู่เกม</h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">ค้นหาเกมที่คุณชื่นชอบตามประเภท</p>
+            </div>
+            
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                <div class="bg-gray-700 rounded-lg p-6 text-center hover:bg-blue-500 transition duration-300 cursor-pointer card-hover">
+                    <i class="fas fa-running text-4xl mb-4 text-blue-400"></i>
+                    <h3 class="font-bold text-lg">แอคชั่น</h3>
+                </div>
+                <div class="bg-gray-700 rounded-lg p-6 text-center hover:bg-purple-500 transition duration-300 cursor-pointer card-hover">
+                    <i class="fas fa-robot text-4xl mb-4 text-purple-400"></i>
+                    <h3 class="font-bold text-lg">RPG</h3>
+                </div>
+                <div class="bg-gray-700 rounded-lg p-6 text-center hover:bg-green-500 transition duration-300 cursor-pointer card-hover">
+                    <i class="fas fa-ghost text-4xl mb-4 text-green-400"></i>
+                    <h3 class="font-bold text-lg">สยองขวัญ</h3>
+                </div>
+                <div class="bg-gray-700 rounded-lg p-6 text-center hover:bg-red-500 transition duration-300 cursor-pointer card-hover">
+                    <i class="fas fa-car text-4xl mb-4 text-red-400"></i>
+                    <h3 class="font-bold text-lg">แข่งรถ</h3>
+                </div>
+                <div class="bg-gray-700 rounded-lg p-6 text-center hover:bg-yellow-500 transition duration-300 cursor-pointer card-hover">
+                    <i class="fas fa-futbol text-4xl mb-4 text-yellow-400"></i>
+                    <h3 class="font-bold text-lg">กีฬา</h3>
+                </div>
+                <div class="bg-gray-700 rounded-lg p-6 text-center hover:bg-pink-500 transition duration-300 cursor-pointer card-hover">
+                    <i class="fas fa-puzzle-piece text-4xl mb-4 text-pink-400"></i>
+                    <h3 class="font-bold text-lg">ปริศนา</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Special Deals -->
+    <section id="deals" class="py-16 bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-3xl font-bold mb-4">โปรโมชั่นพิเศษ</h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">เกมลดราคาสุดคุ้มในตอนนี้</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-gradient-to-br from-purple-600 to-blue-500 rounded-xl p-1 shadow-lg card-hover">
+                    <div class="bg-gray-800 rounded-lg p-6 h-full">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">ลด 50%</span>
+                            <span class="text-yellow-300 font-bold">เหลือ 3 วัน</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1551103782-8ab07afd45c1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Game Deal" class="w-full h-48 object-cover rounded-lg mb-4">
+                        <h3 class="text-xl font-bold mb-2">Cyberpunk 2077</h3>
+                        <div class="flex items-center mb-4">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-gray-400 ml-2">(4.7)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-gray-400 line-through text-sm">฿1,590</span>
+                                <span class="text-2xl font-bold ml-2">฿795</span>
+                            </div>
+                            <button onclick="addToCart('Cyberpunk 2077', 795)" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-br from-yellow-500 to-orange-500 rounded-xl p-1 shadow-lg card-hover">
+                    <div class="bg-gray-800 rounded-lg p-6 h-full">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">ลด 30%</span>
+                            <span class="text-yellow-300 font-bold">เหลือ 5 วัน</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1542751375-ad40-3ab31ab70919?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Game Deal" class="w-full h-48 object-cover rounded-lg mb-4">
+                        <h3 class="text-xl font-bold mb-2">Elden Ring</h3>
+                        <div class="flex items-center mb-4">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-400 ml-2">(5.0)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-gray-400 line-through text-sm">฿1,290</span>
+                                <span class="text-2xl font-bold ml-2">฿903</span>
+                            </div>
+                            <button onclick="addToCart('Elden Ring', 903)" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-br from-green-500 to-teal-500 rounded-xl p-1 shadow-lg card-hover">
+                    <div class="bg-gray-800 rounded-lg p-6 h-full">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">ลด 70%</span>
+                            <span class="text-yellow-300 font-bold">เหลือ 1 วัน</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1607853202273-797f1c22a38e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2127&q=80" alt="Game Deal" class="w-full h-48 object-cover rounded-lg mb-4">
+                        <h3 class="text-xl font-bold mb-2">The Witcher 3</h3>
+                        <div class="flex items-center mb-4">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-400 ml-2">(5.0)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-gray-400 line-through text-sm">฿990</span>
+                                <span class="text-2xl font-bold ml-2">฿297</span>
+                            </div>
+                            <button onclick="addToCart('The Witcher 3', 297)" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us -->
+    <section id="about" class="py-16 bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10 fade-in">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="About GameHub" class="rounded-lg shadow-xl w-full h-auto">
+                </div>
+                <div class="md:w-1/2 fade-in">
+                    <h2 class="text-3xl font-bold mb-6">เกี่ยวกับ GameHub</h2>
+                    <p class="text-gray-300 mb-4 leading-relaxed">
+                        GameHub ก่อตั้งขึ้นในปี 2015 ด้วยความตั้งใจที่จะนำเสนอเกมคุณภาพให้กับผู้เล่นชาวไทยในราคาที่เป็นธรรม พร้อมบริการหลังการขายที่ยอดเยี่ยม
+                    </p>
+                    <p class="text-gray-300 mb-4 leading-relaxed">
+                        เราคัดสรรเกมจากผู้พัฒนาชั้นนำทั่วโลก และมีทีมงานที่พร้อมให้คำแนะนำเกี่ยวกับเกมที่เหมาะสมกับคุณ
+                    </p>
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        ด้วยระบบการชำระเงินที่หลากหลายและปลอดภัย คุณสามารถซื้อเกมได้อย่างมั่นใจ
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="flex items-center">
+                            <div class="bg-blue-500 p-3 rounded-full mr-4">
+                                <i class="fas fa-check text-white"></i>
+                            </div>
+                            <span class="font-medium">เกมแท้ 100%</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="bg-blue-500 p-3 rounded-full mr-4">
+                                <i class="fas fa-check text-white"></i>
+                            </div>
+                            <span class="font-medium">บริการ 24/7</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="bg-blue-500 p-3 rounded-full mr-4">
+                                <i class="fas fa-check text-white"></i>
+                            </div>
+                            <span class="font-medium">ราคาสุดพิเศษ</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="bg-blue-500 p-3 rounded-full mr-4">
+                                <i class="fas fa-check text-white"></i>
+                            </div>
+                            <span class="font-medium">ระบบปลอดภัย</span>
+                        </div>
+                    </div>
+                    
+                    <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-full transition duration-300 inline-flex items-center">
+                        <i class="fas fa-headset mr-2"></i> ติดต่อทีมงาน
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-16 bg-gradient-to-r from-blue-500 to-purple-600">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold mb-6">สมัครรับข่าวสารโปรโมชั่น</h2>
+            <p class="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">รับอีเมลแจ้งเตือนเมื่อเกมที่คุณสนใจลดราคา พร้อมคูปองส่วนลดพิเศษสำหรับสมาชิก</p>
+            
+            <div class="max-w-md mx-auto flex">
+                <input type="email" placeholder="อีเมลของคุณ" class="flex-grow px-4 py-3 rounded-l-lg focus:outline-none text-gray-800">
+                <button class="bg-gray-900 hover:bg-gray-800 text-white font-bold py-3 px-6 rounded-r-lg transition duration-300">
+                    สมัคร
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fas fa-gamepad text-blue-400 mr-2"></i>
+                        <span class="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">GameHub</span>
+                    </h3>
+                    <p class="text-gray-400">
+                        ร้านเกมออนไลน์ชั้นนำของไทย นำเสนอเกมคุณภาพในราคาสุดพิเศษ
+                    </p>
+                    <div class="flex space-x-4 mt-4">
+                        <a href="#" class="text-gray-400 hover:text-blue-400 transition duration-300">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-pink-500 transition duration-300">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-blue-300 transition duration-300">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-red-500 transition duration-300">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">บริการ</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">บัญชีของฉัน</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">คำสั่งซื้อ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">วิธีการชำระเงิน</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">คำถามที่พบบ่อย</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">นโยบาย</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">นโยบายความเป็นส่วนตัว</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">ข้อกำหนดการใช้งาน</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">นโยบายการคืนเงิน</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">นโยบายการส่งมอบ</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">ติดต่อเรา</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-gray-400 mt-1 mr-2"></i>
+                            <span class="text-gray-400">123 ถนนรัชดาภิเษก กรุงเทพฯ 10310</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt text-gray-400 mr-2"></i>
+                            <span class="text-gray-400">02-123-4567</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope text-gray-400 mr-2"></i>
+                            <span class="text-gray-400">contact@gamehub.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-500">
+                <p>&copy; 2023 GameHub. สงวนลิขสิทธิ์ทุกประการ.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="fixed bottom-8 right-8 bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600 transition duration-300 hidden">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Sample game data
+        const games = [
+            {
+                id: 1,
+                title: "Cyberpunk 2077",
+                price: 1590,
+                discount: 50,
+                image: "https://images.unsplash.com/photo-1551103782-8ab07afd45c1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                rating: 4.7,
+                platforms: ["pc", "ps5", "xbox"],
+                genre: "RPG, แอคชั่น"
+            },
+            {
+                id: 2,
+                title: "Elden Ring",
+                price: 1290,
+                discount: 30,
+                image: "https://images.unsplash.com/photo-1542751375-ad40-3ab31ab70919?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                rating: 5.0,
+                platforms: ["pc", "ps5", "xbox"],
+                genre: "RPG, แฟนตาซี"
+            },
+            {
+                id: 3,
+                title: "The Witcher 3",
+                price: 990,
+                discount: 70,
+                image: "https://images.unsplash.com/photo-1607853202273-797f1c22a38e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2127&q=80",
+                rating: 5.0,
+                platforms: ["pc", "ps4", "xbox", "switch"],
+                genre: "RPG, แฟนตาซี"
+            },
+            {
+                id: 4,
+                title: "Red Dead Redemption 2",
+                price: 1390,
+                discount: 25,
+                image: "https://images.unsplash.com/photo-1585298723682-7115561c51b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2089&q=80",
+                rating: 4.9,
+                platforms: ["pc", "ps4", "xbox"],
+                genre: "แอคชั่น, ผจญภัย"
+            },
+            {
+                id: 5,
+                title: "Call of Duty: Modern Warfare II",
+                price: 1790,
+                discount: 15,
+                image: "https://images.unsplash.com/photo-1617806118233-18e1de247200?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1932&q=80",
+                rating: 4.5,
+                platforms: ["pc", "ps5", "xbox"],
+                genre: "FPS, แอคชั่น"
+            },
+            {
+                id: 6,
+                title: "FIFA 23",
+                price: 1490,
+                discount: 20,
+                image: "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1905&q=80",
+                rating: 4.3,
+                platforms: ["pc", "ps5", "xbox"],
+                genre: "กีฬา, ฟุตบอล"
+            },
+            {
+                id: 7,
+                title: "Resident Evil 4 Remake",
+                price: 1690,
+                discount: 10,
+                image: "https://images.unsplash.com/photo-1560169897-fc0a3d89b0a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                rating: 4.8,
+                platforms: ["pc", "ps5", "xbox"],
+                genre: "สยองขวัญ, แอคชั่น"
+            },
+            {
+                id: 8,
+                title: "Stray",
+                price: 790,
+                discount: 0,
+                image: "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1935&q=80",
+                rating: 4.6,
+                platforms: ["pc", "ps5"],
+                genre: "ผจญภัย, อินดี้"
+            }
+        ];
+
+        // Current displayed games count
+        let displayedGames = 4;
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load initial games
+            loadGames();
+            
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // Sticky navbar
+            const navbar = document.getElementById('navbar');
+            let lastScrollY = window.scrollY;
+            
+            window.addEventListener('scroll', () => {
+                if (lastScrollY < window.scrollY) {
+                    // Scrolling down
+                    navbar.classList.add('-translate-y-full');
+                } else {
+                    // Scrolling up
+                    navbar.classList.remove('-translate-y-full');
+                }
+                
+                lastScrollY = window.scrollY;
+                
+                // Change navbar style on scroll
+                if (window.scrollY > 100) {
+                    navbar.classList.add('bg-gray-900');
+                    navbar.classList.remove('bg-gray-800');
+                } else {
+                    navbar.classList.remove('bg-gray-900');
+                    navbar.classList.add('bg-gray-800');
+                }
+                
+                // Back to top button
+                const backToTopButton = document.getElementById('backToTop');
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.remove('hidden');
+                } else {
+                    backToTopButton.classList.add('hidden');
+                }
+            });
+            
+            // Back to top button click
+            document.getElementById('backToTop').addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Fade in animation on scroll
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const fadeInOnScroll = () => {
+                fadeElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (elementTop < windowHeight - 100) {
+                        element.classList.add('visible');
+                    }
+                });
+            };
+            
+            window.addEventListener('scroll', fadeInOnScroll);
+            window.addEventListener('load', fadeInOnScroll);
+        });
+        
+        // Load games to the page
+        function loadGames() {
+            const gamesContainer = document.getElementById('gamesContainer');
+            gamesContainer.innerHTML = '';
+            
+            for (let i = 0; i < displayedGames; i++) {
+                const game = games[i];
+                const discountedPrice = game.price * (100 - game.discount) / 100;
+                
+                const gameCard = document.createElement('div');
+                gameCard.className = 'bg-gray-800 rounded-lg overflow-hidden shadow-lg card-hover fade-in game-card';
+                gameCard.innerHTML = `
+                    <div class="relative">
+                        <img src="${game.image}" alt="${game.title}" class="w-full h-48 object-cover">
+                        ${game.discount > 0 ? `<span class="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">ลด ${game.discount}%</span>` : ''}
+                        <div class="absolute top-2 right-2 flex space-x-1">
+                            ${game.platforms.includes('pc') ? '<i class="fab fa-windows text-gray-300 platform-icon" title="Windows"></i>' : ''}
+                            ${game.platforms.includes('ps5') ? '<i class="fab fa-playstation text-gray-300 platform-icon" title="PlayStation"></i>' : ''}
+                            ${game.platforms.includes('xbox') ? '<i class="fab fa-xbox text-gray-300 platform-icon" title="Xbox"></i>' : ''}
+                            ${game.platforms.includes('switch') ? '<i class="fas fa-gamepad text-gray-300 platform-icon" title="Nintendo Switch"></i>' : ''}
+                        </div>
+                        <div class="game-info">
+                            <h3 class="text-lg font-bold">${game.title}</h3>
+                            <p class="text-gray-300 text-sm mb-2">${game.genre}</p>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-yellow-400">
+                                    ${renderRatingStars(game.rating)}
+                                </div>
+                                <span class="text-gray-400 ml-2">(${game.rating})</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                ${game.discount > 0 ? `<span class="text-gray-400 line-through text-sm">฿${game.price.toLocaleString()}</span>` : ''}
+                                <span class="text-xl font-bold">฿${discountedPrice.toLocaleString()}</span>
+                            </div>
+                            <button onclick="addToCart('${game.title}', ${discountedPrice})" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                gamesContainer.appendChild(gameCard);
+            }
+            
+            // Trigger fade-in animation
+            setTimeout(() => {
+                const fadeElements = document.querySelectorAll('.fade-in');
+                fadeElements.forEach(el => {
+                    const elementTop = el.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (elementTop < windowHeight - 100) {
+                        el.classList.add('visible');
+                    }
+                });
+            }, 100);
+        }
+        
+        // Render rating stars
+        function renderRatingStars(rating) {
+            let stars = '';
+            const fullStars = Math.floor(rating);
+            const hasHalfStar = rating % 1 >= 0.5;
+            
+            for (let i = 0; i < fullStars; i++) {
+                stars += '<i class="fas fa-star"></i>';
+            }
+            
+            if (hasHalfStar) {
+                stars += '<i class="fas fa-star-half-alt"></i>';
+            }
+            
+            const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+            for (let i = 0; i < emptyStars; i++) {
+                stars += '<i class="far fa-star"></i>';
+            }
+            
+            return stars;
+        }
+        
+        // Load more games
+        function loadMoreGames() {
+            if (displayedGames < games.length) {
+                displayedGames += 4;
+                if (displayedGames > games.length) {
+                    displayedGames = games.length;
+                }
+                loadGames();
+            } else {
+                alert('ไม่มีเกมเพิ่มเติมให้แสดงแล้ว');
+            }
+        }
+        
+        // Search games
+        function searchGames() {
+            const searchInput = document.getElementById('searchInput');
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            if (searchTerm.trim() === '') {
+                displayedGames = 4;
+                loadGames();
+                return;
+            }
+            
+            const filteredGames = games.filter(game => 
+                game.title.toLowerCase().includes(searchTerm) || 
+                game.genre.toLowerCase().includes(searchTerm)
+            );
+            
+            const gamesContainer = document.getElementById('gamesContainer');
+            gamesContainer.innerHTML = '';
+            
+            if (filteredGames.length === 0) {
+                gamesContainer.innerHTML = `
+                    <div class="col-span-full text-center py-8">
+                        <i class="fas fa-search text-4xl text-gray-500 mb-4"></i>
+                        <h3 class="text-xl font-bold text-gray-400">ไม่พบเกมที่ตรงกับการค้นหา</h3>
+                        <p class="text-gray-500">ลองใช้คำค้นหาอื่นหรือตรวจสอบการสะกดอีกครั้ง</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            filteredGames.forEach(game => {
+                const discountedPrice = game.price * (100 - game.discount) / 100;
+                
+                const gameCard = document.createElement('div');
+                gameCard.className = 'bg-gray-800 rounded-lg overflow-hidden shadow-lg card-hover fade-in game-card';
+                gameCard.innerHTML = `
+                    <div class="relative">
+                        <img src="${game.image}" alt="${game.title}" class="w-full h-48 object-cover">
+                        ${game.discount > 0 ? `<span class="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">ลด ${game.discount}%</span>` : ''}
+                        <div class="absolute top-2 right-2 flex space-x-1">
+                            ${game.platforms.includes('pc') ? '<i class="fab fa-windows text-gray-300 platform-icon" title="Windows"></i>' : ''}
+                            ${game.platforms.includes('ps5') ? '<i class="fab fa-playstation text-gray-300 platform-icon" title="PlayStation"></i>' : ''}
+                            ${game.platforms.includes('xbox') ? '<i class="fab fa-xbox text-gray-300 platform-icon" title="Xbox"></i>' : ''}
+                            ${game.platforms.includes('switch') ? '<i class="fas fa-gamepad text-gray-300 platform-icon" title="Nintendo Switch"></i>' : ''}
+                        </div>
+                        <div class="game-info">
+                            <h3 class="text-lg font-bold">${game.title}</h3>
+                            <p class="text-gray-300 text-sm mb-2">${game.genre}</p>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-yellow-400">
+                                    ${renderRatingStars(game.rating)}
+                                </div>
+                                <span class="text-gray-400 ml-2">(${game.rating})</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                ${game.discount > 0 ? `<span class="text-gray-400 line-through text-sm">฿${game.price.toLocaleString()}</span>` : ''}
+                                <span class="text-xl font-bold">฿${discountedPrice.toLocaleString()}</span>
+                            </div>
+                            <button onclick="addToCart('${game.title}', ${discountedPrice})" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                gamesContainer.appendChild(gameCard);
+            });
+            
+            // Trigger fade-in animation
+            setTimeout(() => {
+                const fadeElements = document.querySelectorAll('.fade-in');
+                fadeElements.forEach(el => {
+                    const elementTop = el.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (elementTop < windowHeight - 100) {
+                        el.classList.add('visible');
+                    }
+                });
+            }, 100);
+        }
+        
+        // Add to cart function
+        function addToCart(gameTitle, price) {
+            const cartCount = document.getElementById('cartCount');
+            let count = parseInt(cartCount.textContent);
+            cartCount.textContent = count + 1;
+            
+            // Animation for cart icon
+            const cartIcon = document.querySelector('.fa-shopping-cart');
+            cartIcon.classList.add('animate-bounce');
+            setTimeout(() => {
+                cartIcon.classList.remove('animate-bounce');
+            }, 1000);
+            
+            // Show notification
+            const notification = document.createElement('div');
+            notification.className = 'fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg flex items-center';
+            notification.innerHTML = `
+                <i class="fas fa-check-circle mr-2"></i>
+                <span>เพิ่ม "${gameTitle}" ลงในตะกร้าแล้ว - ฿${price.toLocaleString()}</span>
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('opacity-0', 'transition-opacity', 'duration-300');
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
