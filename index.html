@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Manatchai Khamwan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script> -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --dark: #0f172a;
+            --light: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Kanit', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        .profile-container {
+            position: relative;
+            width: 280px;
+            height: 280px;
+        }
+
+        @media (min-width: 768px) {
+            .profile-container {
+                width: 320px;
+                height: 320px;
+            }
+        }
+
+        .profile-circle {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+            transition: all 0.5s ease;
+            border: 3px solid rgba(59, 130, 246, 0.3);
+            transform-style: preserve-3d;
+        }
+
+        .profile-circle:hover {
+            transform: scale(1.05) rotateY(10deg);
+            box-shadow: 0 0 50px rgba(59, 130, 246, 0.8);
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .profile-circle:hover .profile-img {
+            transform: scale(1.1);
+        }
+
+        .glow-effect {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent));
+            z-index: 1;
+            animation: rotate 8s linear infinite;
+            filter: blur(20px);
+            opacity: 0.5;
+        }
+
+        .pulse-effect {
+            position: absolute;
+            width: calc(100% + 20px);
+            height: calc(100% + 20px);
+            border-radius: 50%;
+            border: 2px solid rgba(59, 130, 246, 0.5);
+            top: -10px;
+            left: -10px;
+            z-index: 5;
+            animation: pulse 3s ease infinite;
+        }
+
+        .ring-effect {
+            position: absolute;
+            width: calc(100% + 40px);
+            height: calc(100% + 40px);
+            border-radius: 50%;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            top: -20px;
+            left: -20px;
+            z-index: 4;
+            animation: ringPulse 4s ease infinite;
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+
+            50% {
+                transform: scale(1.05);
+                opacity: 0.3;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+        }
+
+        @keyframes ringPulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.2;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+        }
+
+        /* Particles */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background-color: rgba(59, 130, 246, 0.5);
+            border-radius: 50%;
+            animation: float linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Typing Animation */
+        .typed-cursor {
+            opacity: 1;
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Section Animation */
+        .section-hidden {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease;
+        }
+
+        .section-show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Skill Cards */
+        .skill-card {
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Project Cards */
+        .project-card {
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .project-card:hover {
+            transform: scale(1.03) rotateY(5deg);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Navigation */
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .mobile-menu.open {
+            max-height: 500px;
+        }
+
+        /* Button Effects */
+        .btn-primary {
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+            z-index: -1;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        /* Section Title */
+        .section-title {
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            bottom: -10px;
+            left: 0;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+
+        .section-title:hover::after {
+            transform: scaleX(1);
+        }
+
+        /* Floating Elements */
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        /* Grid Layout */
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 1024px) {
+            .hero-grid {
+                grid-template-columns: 1fr 1fr;
+                align-items: center;
+            }
+        }
+
+        /* Content Box */
+        .content-box {
+            position: relative;
+            padding: 2rem;
+            border-radius: 1rem;
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .content-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            border-color: rgba(59, 130, 246, 0.4);
+        }
+
+        /* Neon Effect */
+        .neon-text {
+            text-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary), 0 0 15px var(--primary);
+            animation: neon 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes neon {
+            from {
+                text-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary), 0 0 15px var(--primary);
+            }
+
+            to {
+                text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 30px var(--primary);
+            }
+        }
+
+        /* Glitch Effect */
+        .glitch {
+            position: relative;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+
+        .glitch::before {
+            color: #0ff;
+            z-index: -1;
+            animation: glitch-effect 3s infinite;
+        }
+
+        .glitch::after {
+            color: #f0f;
+            z-index: -2;
+            animation: glitch-effect 2s infinite reverse;
+        }
+
+        @keyframes glitch-effect {
+            0% {
+                transform: translate(0);
+            }
+
+            20% {
+                transform: translate(-3px, 3px);
+            }
+
+            40% {
+                transform: translate(-3px, -3px);
+            }
+
+            60% {
+                transform: translate(3px, 3px);
+            }
+
+            80% {
+                transform: translate(3px, -3px);
+            }
+
+            100% {
+                transform: translate(0);
+            }
+        }
+    </style>
+
+</head>
+
+<body class="antialiased">
+
+    <!-- <script>
+    tsParticles.load({
+      id: "tsparticles",
+      options: {
+        fpsLimit: 60,
+        particles: {
+          number: {
+            value: 80
+          },
+          color: {
+            value: "#ff0000",
+            animation: {
+              enable: true,
+              speed: 20,
+              sync: true
+            }
+          },
+          shape: {
+            type: "circle"
+          },
+          opacity: {
+            value: 0.5
+          },
+          size: {
+            value: { min: 1, max: 3 }
+          },
+          links: {
+            enable: true,
+            distance: 100,
+            color: "random",
+            opacity: 0.4,
+            width: 1,
+            triangles: {
+              enable: true,
+              color: "#ffffff",
+              opacity: 0.1
+            }
+          },
+          move: {
+            enable: true,
+            speed: 4,
+            direction: "none",
+            outModes: "out"
+          }
+        },
+        interactivity: {
+          events: {
+            onHover: {
+              enable: true,
+              mode: "repulse"
+            },
+            onClick: {
+              enable: true,
+              mode: "push"
+            }
+          },
+          modes: {
+            repulse: {
+              distance: 200
+            },
+            push: {
+              quantity: 4
+            }
+          }
+        },
+        
+      }
+    });
+  </script> -->
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-gray-900 bg-opacity-90 backdrop-blur-sm z-50 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <span class="text-xl font-bold gradient-text">Portfolio | Manatchai Khamwan</span>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home"
+                            class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">หน้าแรก</a>
+                        <a href="#about"
+                            class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">เกี่ยวกับ</a>
+                        <a href="#skills"
+                            class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">ทักษะ</a>
+                        <a href="#projects"
+                            class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">ผลงาน</a>
+                        <a href="#contact"
+                            class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">ติดต่อ</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button"
+                        class="p-2 rounded-md text-gray-400 hover:text-white focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu md:hidden bg-gray-900">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home"
+                    class="block px-3 py-2 text-gray-300 hover:text-white rounded-md text-base font-medium">หน้าแรก</a>
+                <a href="#about"
+                    class="block px-3 py-2 text-gray-300 hover:text-white rounded-md text-base font-medium">เกี่ยวกับ</a>
+                <a href="#skills"
+                    class="block px-3 py-2 text-gray-300 hover:text-white rounded-md text-base font-medium">ทักษะ</a>
+                <a href="#projects"
+                    class="block px-3 py-2 text-gray-300 hover:text-white rounded-md text-base font-medium">ผลงาน</a>
+                <a href="#contact"
+                    class="block px-3 py-2 text-gray-300 hover:text-white rounded-md text-base font-medium">ติดต่อ</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero pt-16" data-aos="fade-right">
+        <div class="particles" id="particles"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-gray-900 z-1"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10 w-full">
+            <div class="hero-grid">
+                <div class="">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4">
+                        <span id="typed" class="gradient-text"></span>
+                    </h1>
+
+                    <h2 class="text-xl md:text-2xl text-gray-400 mb-6">นักพัฒนาเว็บไซต์และนักออกแบบ UI/UX</h2>
+
+                    <p class="text-gray-300 mb-8 leading-relaxed">
+                        ผมสร้างประสบการณ์ดิจิทัลที่ยอดเยี่ยมด้วยการผสมผสานระหว่างความคิดสร้างสรรค์และเทคโนโลยีที่ทันสมัย
+                        ผลงานของผมไม่เพียงแต่สวยงาม แต่ยังใช้งานได้ดีและมีประสิทธิภาพสูง
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#contact"
+                            class="btn-primary px-8 py-3 bg-gradient-to-r from-blue-500 to-teal-500 text-white rounded-full font-medium hover:opacity-90 transition duration-300 transform hover:scale-105">
+                            <i class="fas fa-paper-plane mr-2"></i> ติดต่อฉัน
+                        </a>
+                        <a href="#projects"
+                            class="px-8 py-3 border border-blue-500 text-blue-400 rounded-full font-medium hover:bg-blue-500 hover:bg-opacity-10 transition duration-300 transform hover:scale-105">
+                            <i class="fas fa-eye mr-2"></i> ดูผลงาน
+                        </a>
+                    </div>
+                </div>
+
+                <div class="flex justify-center lg:justify-end">
+                    <div class="profile-container">
+                        <div class="glow-effect"></div>
+                        <div class="pulse-effect"></div>
+                        <div class="ring-effect"></div>
+                        <div class="profile-circle">
+                            <img src="img/P.jpg" alt="Manatchai Khamwan" class="profile-img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 text-center">
+                <a href="#about" class="inline-block animate-bounce">
+                    <i class="fas fa-chevron-down text-2xl text-gray-400 hover:text-white"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto " data-aos="fade-right">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title gradient-text">เกี่ยวกับฉัน</h2>
+            <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-teal-500 mx-auto"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center" data-aos="fade-right">
+            <div class="relative">
+                <div
+                    class="absolute -inset-4 bg-gradient-to-r from-blue-500 to-teal-500 rounded-2xl opacity-20 blur-lg">
+                </div>
+                <img src="https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                    alt="Working"
+                    class="relative w-full h-auto rounded-2xl shadow-xl transform rotate-1 hover:rotate-0 transition duration-500">
+            </div>
+
+            <div class="content-box" data-aos="fade-left">
+                <h3 class="text-2xl font-bold mb-4">สวัสดีครับ</h3>
+                <h3 class="text-2xl font-bold mb-4">ผม, มนัสชัย คำหวาน</h3>
+                <p class="text-gray-400 mb-4 leading-relaxed">
+                    ชื่อเล่นแฟ้ม สำเร็จการศึกษาสาขาวิทยาการคอมพิวเตอร์ (Computer Science) จากมหาวิทยาลัยราชภัฏเลย
+                    มีความสนใจด้านเทคโนโลยีและคอมพิวเตอร์ ใฝ่ฝันอยากเป็น Programmer & Developer
+                    มีทักษะภาษา PHP, HTML, CSS, Java, JavaScript, TypeScript, SQL และใช้ Framework อย่าง Spring Boot,
+                    Laravel และ Angular ได้ดี
+                    ใช้เครื่องมือพัฒนาเช่น Visual Studio Code, XAMPP, DBeaver, Adobe และ Microsoft Office ได้คล่อง
+
+                </p>
+                <p class="text-gray-400 mb-6 leading-relaxed">
+                    เคยฝึกงานที่บริษัท PCC ในเครือ LOXLAY และ IBM เป็นเวลา 4 เดือน และอบรม UX/UI ที่ WhiteSoft Solution
+                    เป็นเวลา 2 สัปดาห์
+                    มีผลงานพัฒนาระบบสวัสดิการักษาพยาบาล IPD/OPD ได้รับรางวัลรองชนะเลิศนวัตกรรมสหกิจศึกษา
+                    และพัฒนาโปรเจกต์ระบบสนับสนุนงานให้กับสำนักวิทยบริการฯ
+                    ของมหาวิทยาลัย
+                </p>
+
+                <div class="grid grid-cols-2 gap-4 mb-8">
+                    <div>
+                        <p class="text-gray-400"><span class="font-bold text-white">ชื่อ:</span> มนัชชัย คำหวาน</p>
+                        <p class="text-gray-400"><span class="font-bold text-white">อายุ:</span> 23 ปี</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-400"><span class="font-bold text-white">อีเมล:</span> fam.za.fam42110
+                            @gmail.com
+
+                        </p>
+                        <p class="text-gray-400"><span class="font-bold text-white">จาก:</span> เลย, ไทย</p>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-4">
+                    <a href="Resume.pdf" download="Resume_Manatchai.pdf"
+                        class="btn-primary px-6 py-3 bg-gradient-to-r from-blue-500 to-teal-500 text-white rounded-full font-medium hover:opacity-90 transition duration-300">
+                        <i class="fas fa-download mr-2"></i> ดาวน์โหลดเรซูเม่
+                    </a>
+                    <a href="#contact"
+                        class="px-6 py-3 border border-blue-500 text-blue-400 rounded-full font-medium hover:bg-blue-500 hover:bg-opacity-10 transition duration-300">
+                        <i class="fas fa-envelope mr-2"></i> ส่งข้อความ
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills"
+        class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-gray-800 bg-opacity-50 rounded-3xl my-10 "
+        data-aos="fade-up" data-aos-duration="3000">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title gradient-text">ทักษะของฉัน</h2>
+            <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-teal-500 mx-auto"></div>
+            <p class="text-gray-400 max-w-2xl mx-auto mt-4">ทักษะและเทคโนโลยีที่ผมเชี่ยวชาญและใช้งานเป็นประจำ</p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div class="skill-card bg-gray-800 bg-opacity-50 p-6 rounded-xl">
+                <div class="text-blue-400 mb-4 text-4xl">
+                    <i class="fab fa-html5"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">HTML5</h3>
+                <p class="text-gray-400">โครงสร้างเว็บที่ทันสมัยและเป็นมาตรฐาน</p>
+                <div class="mt-4 h-1 w-full bg-gray-700 rounded-full">
+                    <div class="h-1 bg-blue-500 rounded-full" style="width: 95%"></div>
+                </div>
+            </div>
+
+            <div class="skill-card bg-gray-800 bg-opacity-50 p-6 rounded-xl">
+                <div class="text-blue-400 mb-4 text-4xl">
+                    <i class="fab fa-css3-alt"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">CSS3</h3>
+                <p class="text-gray-400">ออกแบบที่สวยงามและตอบสนองได้</p>
+                <div class="mt-4 h-1 w-full bg-gray-700 rounded-full">
+                    <div class="h-1 bg-blue-500 rounded-full" style="width: 90%"></div>
+                </div>
+            </div>
+
+            <div class="skill-card bg-gray-800 bg-opacity-50 p-6 rounded-xl">
+                <div class="text-blue-400 mb-4 text-4xl">
+                    <i class="fab fa-php"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">PHP</h3>
+                <p class="text-gray-400">พัฒนาระบบอย่างยืดหยุ่น</p>
+                <div class="mt-4 h-1 w-full bg-gray-700 rounded-full">
+                    <div class="h-1 bg-blue-500 rounded-full" style="width: 90%"></div>
+                </div>
+            </div>
+
+
+
+            <div class="skill-card bg-gray-800 bg-opacity-50 p-6 rounded-xl">
+                <div class="text-blue-400 mb-4 text-4xl">
+                    <i class="fab fa-js"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">JavaScript</h3>
+                <p class="text-gray-400">สร้างความมีชีวิตชีวาให้กับเว็บไซต์</p>
+                <div class="mt-4 h-1 w-full bg-gray-700 rounded-full">
+                    <div class="h-1 bg-blue-500 rounded-full" style="width: 85%"></div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+            <div class="skill-card bg-gray-800 bg-opacity-50 p-6 rounded-xl">
+                <div class="text-blue-400 mb-4 text-4xl">
+                    <i class="fab fa-react"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">React</h3>
+                <p class="text-gray-400">พัฒนาแอปพลิเคชันที่ทันสมัย</p>
+                <div class="mt-4 h-1 w-full bg-gray-700 rounded-full">
+                    <div class="h-1 bg-blue-500 rounded-full" style="width: 68%"></div>
+                </div>
+            </div>
+
+            <div class="skill-card bg-gray-800 bg-opacity-50 p-6 rounded-xl">
+                <div class="text-blue-400 mb-4 text-4xl">
+                    <i class="fab fa-node-js"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Node.js</h3>
+                <p class="text-gray-400">ระบบหลังบ้านที่แข็งแกร่ง</p>
+                <div class="mt-4 h-1 w-full bg-gray-700 rounded-full">
+                    <div class="h-1 bg-blue-500 rounded-full" style="width: 75%"></div>
+                </div>
+            </div>
+
+            <div class="skill-card bg-gray-800 bg-opacity-50 p-6 rounded-xl">
+                <div class="text-blue-400 mb-4 text-4xl">
+                    <i class="fas fa-database"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">XAMPP</h3>
+                <p class="text-gray-400">จัดการข้อมูลอย่างมีประสิทธิภาพ</p>
+                <div class="mt-4 h-1 w-full bg-gray-700 rounded-full">
+                    <div class="h-1 bg-blue-500 rounded-full" style="width: 70%"></div>
+                </div>
+            </div>
+
+            <div class="skill-card bg-gray-800 bg-opacity-50 p-6 rounded-xl">
+                <div class="text-blue-400 mb-4 text-4xl">
+                    <i class="fas fa-paint-brush"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">UI/UX</h3>
+                <p class="text-gray-400">ออกแบบประสบการณ์ผู้ใช้ที่ยอดเยี่ยม</p>
+                <div class="mt-4 h-1 w-full bg-gray-700 rounded-full">
+                    <div class="h-1 bg-blue-500 rounded-full" style="width: 85%"></div>
+                </div>
+            </div>
+
+
+
+
+            <div class="skill-card bg-gray-800 bg-opacity-50 p-6 rounded-xl">
+                <div class="text-blue-400 mb-4 text-4xl">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Responsive</h3>
+                <p class="text-gray-400">รองรับทุกอุปกรณ์อย่างสมบูรณ์</p>
+                <div class="mt-4 h-1 w-full bg-gray-700 rounded-full">
+                    <div class="h-1 bg-blue-500 rounded-full" style="width: 75%"></div>
+                </div>
+            </div>
+
+
+
+            <div class="skill-card bg-gray-800 bg-opacity-50 p-6 rounded-xl">
+                <div class="text-blue-400 mb-4 text-4xl">
+                    <i class="fab fa-laravel"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Laravel</h3>
+                <p class="text-gray-400">Framework PHP ที่ยืดหยุ่นและครบครัน</p>
+                <div class="mt-4 h-1 w-full bg-gray-700 rounded-full">
+                    <div class="h-1 bg-blue-500 rounded-full" style="width: 90%"></div>
+                </div>
+            </div>
+
+            <div class="skill-card bg-gray-800 bg-opacity-50 p-6 rounded-xl">
+                <div class="text-blue-400 mb-4 text-4xl">
+                    <i class="fab fa-angular"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Angular</h3>
+                <p class="text-gray-400">พัฒนาแอปพลิเคชันอย่างมืออาชีพ</p>
+                <div class="mt-4 h-1 w-full bg-gray-700 rounded-full">
+                    <div class="h-1 bg-blue-500 rounded-full" style="width: 80%"></div>
+                </div>
+            </div>
+
+            <div class="skill-card bg-gray-800 bg-opacity-50 p-6 rounded-xl">
+                <div class="text-blue-400 mb-4 text-4xl">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Spring Boot</h3>
+                <p class="text-gray-400">Framework สำหรับ Java ยืดหยุ่น</p>
+                <div class="mt-4 h-1 w-full bg-gray-700 rounded-full">
+                    <div class="h-1 bg-blue-500 rounded-full" style="width: 75%"></div>
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto ">
+        <div class="text-center mb-16" data-aos="fade-left">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title gradient-text">ผลงานของฉัน</h2>
+            <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-teal-500 mx-auto"></div>
+            <p class="text-gray-400 max-w-2xl mx-auto mt-4">ผลงานที่ผมได้สร้างและพัฒนาขึ้นมา</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+            <div class="project-card bg-gray-800 rounded-xl overflow-hidden" data-aos="fade-right">
+                <div class="h-48 overflow-hidden relative">
+                    <img src="img/1.png" alt="Project 1"
+                        class="w-full h-full object-cover transition duration-500 hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    <div class="absolute bottom-0 left-0 p-4">
+                        <h3 class="text-xl font-bold text-white">ระบบจัดการโรงแรมออนไลน์</h3>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-400 mb-4">ระบบครบวงจรสำหรับบริหารจองห้องออนไลน์ด้วยแดชบอร์ดที่ทันสมัย</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-blue-500 bg-opacity-20 text-blue-400 rounded-full text-xs">HTML</span>
+                        <span
+                            class="px-3 py-1 bg-green-500 bg-opacity-20 text-green-400 rounded-full text-xs">CSS</span>
+                        <span
+                            class="px-3 py-1 bg-purple-500 bg-opacity-20 text-purple-400 rounded-full text-xs">Tailwind
+                            CSS</span>
+                    </div>
+                    <div class="mt-4">
+                        <a href="HotelTest.html" class="text-blue-400 hover:text-blue-300 text-sm font-medium">
+                            <i class="fas fa-external-link-alt mr-1"></i> ดูตัวอย่าง
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card bg-gray-800 rounded-xl overflow-hidden" data-aos="fade-left">
+                <div class="h-48 overflow-hidden relative">
+                    <img src="img/2.png" alt="Project 2"
+                        class="w-full h-full object-cover transition duration-500 hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    <div class="absolute bottom-0 left-0 p-4">
+                        <h3 class="text-xl font-bold text-white">เว็บแนะนำสถานที่ท่องเที่ยว จ.เลย</h3>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-400 mb-4">เว็บท่องเที่ยวที่เน้นนำเสนอภาพลักษณ์ที่สวยงามและน่าสนใจ</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-blue-500 bg-opacity-20 text-blue-400 rounded-full text-xs">HTML</span>
+                        <span class="px-3 py-1 bg-pink-500 bg-opacity-20 text-pink-400 rounded-full text-xs">Tailwind
+                            CSS</span>
+                        <span
+                            class="px-3 py-1 bg-yellow-500 bg-opacity-20 text-yellow-400 rounded-full text-xs">CSS</span>
+
+                    </div>
+                    <div class="mt-4">
+                        <a href="Loei.html" class="text-blue-400 hover:text-blue-300 text-sm font-medium">
+                            <i class="fas fa-external-link-alt mr-1"></i> ดูตัวอย่าง
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card bg-gray-800 rounded-xl overflow-hidden" data-aos="fade-right">
+                <div class="h-48 overflow-hidden relative">
+                    <img src="img/PCC.jpg" alt="Project 2"
+                        class="w-full h-full object-cover transition duration-500 hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    <div class="absolute bottom-0 left-0 p-4">
+                        <h3 class="text-xl font-bold text-white">ระบบสวัสดิการักษาพยาบาล IPD/OPD</h3>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-400 mb-4">ระบบสวัสดิการักษาพยาบาล ให้พนักงานเบิกค่ารักษาพยาบาล IPD/OPD
+                        ภายในบริษัทของตัวเอง</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-pink-500 bg-opacity-20 text-pink-400 rounded-full text-xs">Angular
+                            Framework</span>
+                        <span class="px-3 py-1 bg-blue-500 bg-opacity-20 text-blue-400 rounded-full text-xs">Spring
+                            Boot Framework</span>
+
+
+                        <span
+                            class="px-3 py-1 bg-purple-500 bg-opacity-20 text-purple-400 rounded-full text-xs">Tailwind
+                            CSS</span>
+                        <span
+                            class="px-3 py-1 bg-yellow-500 bg-opacity-20 text-yellow-400 rounded-full text-xs">DBeaver</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card bg-gray-800 rounded-xl overflow-hidden" data-aos="fade-left">
+                <div class="h-48 overflow-hidden relative">
+                    <img src="img/LRU1.png" alt="Project 3"
+                        class="w-full h-full object-cover transition duration-500 hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    <div class="absolute bottom-0 left-0 p-4">
+                        <h3 class="text-xl font-bold text-white">ระบบฐานข้อมูลงานโครงการ</h3>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-400 mb-4">ระบบฐานข้อมูลงานโครงการสำนักวิทยบริการและเทคโนโลยีสารสนเทศ
+                        มหาวิทยาลัยราชภัฏเลย</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-blue-500 bg-opacity-20 text-blue-400 rounded-full text-xs">Laravel
+                            Framework</span>
+                        <span class="px-3 py-1 bg-green-500 bg-opacity-20 text-green-400 rounded-full text-xs">
+                            CSS</span>
+                        <span
+                            class="px-3 py-1 bg-purple-500 bg-opacity-20 text-purple-400 rounded-full text-xs">HTML</span>
+                        <span
+                            class="px-3 py-1 bg-yellow-500 bg-opacity-20 text-yellow-400 rounded-full text-xs">XAMPP</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-12">
+            <a href="#"
+                class="inline-block px-8 py-3 border border-blue-500 text-blue-400 rounded-full font-medium hover:bg-blue-500 hover:bg-opacity-10 transition duration-300 transform hover:scale-105">
+                <i class="fas fa-list mr-2"></i> ดูผลงานทั้งหมด
+            </a>
+        </div>
+    </section>
+
+
+
+    <section id="projects" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto ">
+        <div class="text-center mb-16" data-aos="fade-up" data-aos-duration="3000">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title gradient-text">ฝึกประสบการณ์</h2>
+            <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-teal-500 mx-auto"></div>
+            <p class="text-gray-400 max-w-2xl mx-auto mt-4">ฝึกประสบการณ์สหกิจ</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+            <div class="project-card bg-gray-800 rounded-xl overflow-hidden carousel slide " id="carouselExample"
+                data-bs-ride="carousel" data-aos="fade-right">
+                <div class="carousel-inner">
+                    <div class="h-48 overflow-hidden relative">
+                        <div class="carousel-item active">
+                            <img src="img/PCC1.jpg" alt="Project 1"
+                                class="w-full h-full object-cover transition duration-500 hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        </div>
+                        <div class="carousel-item ">
+                            <img src="img/PCC2.jpg" alt="Project 1"
+                                class="w-full h-full object-cover transition duration-500 hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        </div>
+                        <div class="absolute bottom-0 left-0 p-4">
+                            <h3 class="text-xl font-bold text-white">บริษัท Professional Computer</h3>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-400 mb-4">ได้ทำระบบสวัสดิการักษาพยาบาล IPD/OPD</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-blue-500 bg-opacity-20 text-blue-400 rounded-full text-xs">Spring
+                                Boot Framework</span>
+                            <!-- <span
+                                class="px-3 py-1 bg-green-500 bg-opacity-20 text-green-400 rounded-full text-xs">CSS</span> -->
+                            <span
+                                class="px-3 py-1 bg-purple-500 bg-opacity-20 text-purple-400 rounded-full text-xs">Angular
+                                Framework</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="project-card bg-gray-800 rounded-xl overflow-hidden carousel slide " id="carouselExample"
+                data-bs-ride="carousel" data-aos="fade-left">
+                <div class="carousel-inner">
+                    <div class="h-48 overflow-hidden relative ">
+                        <div class="carousel-item active">
+                            <img src="img/W1.jpg" alt="Project 2"
+                                class="w-full h-full object-cover transition duration-500 hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="img/W2.jpg" alt="Project 2"
+                                class="w-full h-full object-cover transition duration-500 hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                        </div>
+                        <div class="absolute bottom-0 left-0 p-4">
+                            <h3 class="text-xl font-bold text-white">บริษัท WhiteSoft Solution</h3>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-400 mb-4">ได้ศึกษาเพิ่มเติม UX/UI และนำ Fixma มาใช้ออกแบบ</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span
+                                class="px-3 py-1 bg-blue-500 bg-opacity-20 text-blue-400 rounded-full text-xs">Figma</span>
+                            <span
+                                class="px-3 py-1 bg-pink-500 bg-opacity-20 text-pink-400 rounded-full text-xs">UX/UI</span>
+                            <span
+                                class="px-3 py-1 bg-yellow-500 bg-opacity-20 text-yellow-400 rounded-full text-xs">CSS</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto section-hidden">
+        <div class="text-center mb-16" data-aos="fade-left">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title gradient-text">ติดต่อฉัน</h2>
+            <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-teal-500 mx-auto"></div>
+            <p class="text-gray-400 max-w-2xl mx-auto mt-4">สนใจทำงานด้วยกันหรือมีคำถาม? ส่งข้อความมาหาผมได้เลย</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12" data-aos="zoom-in">
+            <div class="content-box">
+                <h3 class="text-2xl font-bold mb-6">ส่งข้อความถึงฉัน</h3>
+
+                <!-- ฟอร์มติดต่อ -->
+                <form id="contactForm" action="https://formsubmit.co/fam.za.fam42110@gmail.com" method="POST"
+                    class="space-y-6">
+                    <!-- ป้องกันการ redirect ไปยังหน้า Thank You -->
+                    <input type="hidden" name="_redirect" value="javascript:void(0)">
+                    <input type="hidden" name="_captcha" value="false">
+
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-400 mb-1">ชื่อของคุณ</label>
+                        <input type="text" id="name" name="name" required
+                            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="ชื่อของคุณ">
+                    </div>
+
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-400 mb-1">อีเมล</label>
+                        <input type="email" id="email" name="email" required
+                            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="อีเมลของคุณ">
+                    </div>
+
+                    <div>
+                        <label for="subject" class="block text-sm font-medium text-gray-400 mb-1">หัวข้อ</label>
+                        <input type="text" id="subject" name="subject" required
+                            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="หัวข้อ">
+                    </div>
+
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gray-400 mb-1">ข้อความ</label>
+                        <textarea id="message" name="message" rows="5" required
+                            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="ข้อความของคุณ"></textarea>
+                    </div>
+
+                    <button type="submit"
+                        class="btn-primary w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-teal-500 text-white rounded-lg font-medium hover:opacity-90 transition duration-300 transform hover:scale-105">
+                        <i class="fas fa-paper-plane mr-2"></i> ส่งข้อความ
+                    </button>
+                </form>
+
+                <!-- SweetAlert2 -->
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+                <script>
+                    // ฟังก์ชันแจ้งเตือนส่งสำเร็จ
+                    function showSuccessAlert() {
+                        Swal.fire({
+                            icon: 'success',
+                            title: '✅ ส่งข้อความเรียบร้อยแล้ว!',
+                            html: '<b style="color:#0dcaf0;">ถึงคุณ มนัสชัย 💙</b>',
+                            background: '#1e1e2f',
+                            color: '#ffffff',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            customClass: {
+                                popup: 'animated tada border-glow'
+                            }
+                        });
+                    }
+
+                    // ฟังก์ชันแจ้งเตือนเมื่อเกิดข้อผิดพลาด
+                    function showErrorAlert(message) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'เกิดข้อผิดพลาด',
+                            text: message,
+                            background: '#2c2c3e',
+                            color: '#ffdddd'
+                        });
+                    }
+
+                    // จัดการการส่งฟอร์มด้วย JavaScript (AJAX)
+                    const form = document.getElementById('contactForm');
+
+                    form.addEventListener('submit', async function (e) {
+                        e.preventDefault(); // หยุดการโหลดหน้าใหม่
+
+                        const formData = new FormData(form);
+
+                        try {
+                            const response = await fetch("https://formsubmit.co/ajax/fam.za.fam42110@gmail.com", {
+                                method: "POST",
+                                headers: { 'Accept': 'application/json' },
+                                body: formData
+                            });
+
+                            if (response.ok) {
+                                form.reset();        // ล้างข้อมูลในฟอร์ม
+                                showSuccessAlert();  // แสดงข้อความสำเร็จ
+                            } else {
+                                const errorData = await response.json();
+                                throw new Error(errorData.message || 'ส่งข้อมูลไม่สำเร็จ');
+                            }
+                        } catch (error) {
+                            showErrorAlert(error.message);
+                        }
+                    });
+                </script>
+
+
+
+            </div>
+
+            <div class="content-box" data-aos="zoom-in-up">
+                <h3 class="text-2xl font-bold mb-6">ข้อมูลติดต่อ</h3>
+
+                <div class="space-y-6">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 text-blue-400 text-xl mr-4 mt-1">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-medium mb-1">ที่อยู่</h4>
+                            <p class="text-gray-400">131 หมู่ที่ 1 ต.บุฮม อ.เชียงคาน จ.เลย</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 text-blue-400 text-xl mr-4 mt-1">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-medium mb-1">อีเมล</h4>
+                            <p class="text-gray-400">fam.za.fam42110@gmail.com</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 text-blue-400 text-xl mr-4 mt-1">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-medium mb-1">โทรศัพท์</h4>
+                            <p class="text-gray-400">099-607-0839</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 text-blue-400 text-xl mr-4 mt-1">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-medium mb-1">เว็บไซต์</h4>
+                            <p class="text-gray-400">www.manatchai.dev</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8">
+                    <h4 class="text-lg font-medium mb-4">ติดตามฉันบนโซเชียลมีเดีย</h4>
+
+                    <div class="flex space-x-4">
+                        <a href="https://www.facebook.com/fam123456/"
+                            class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center text-xl text-gray-400 hover:text-blue-400 hover:bg-gray-700 transition duration-300">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <!-- <a href="#"
+                            class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center text-xl text-gray-400 hover:text-blue-400 hover:bg-gray-700 transition duration-300">
+                            <i class="fab fa-twitter"></i>
+                        </a> -->
+                        <a href="https://www.instagram.com/manatchai_fam/?hl=th"
+                            class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center text-xl text-gray-400 hover:text-blue-400 hover:bg-gray-700 transition duration-300">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <!-- <a href="#"
+                            class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center text-xl text-gray-400 hover:text-blue-400 hover:bg-gray-700 transition duration-300">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a> -->
+                        <a href="https://github.com/FamManatchai"
+                            class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center text-xl text-gray-400 hover:text-blue-400 hover:bg-gray-700 transition duration-300">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-10 bg-gray-900 bg-opacity-90 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <span class="text-xl font-bold gradient-text">Manatchai Khamwan</span>
+                    <p class="text-gray-400 text-sm mt-1">นักพัฒนาเว็บไซต์และนักออกแบบ UI/UX</p>
+                </div>
+
+                <div class="text-gray-400 text-sm text-center md:text-right">
+                    &copy; 2025 Manatchai Khamwan. สงวนลิขสิทธิ์.<br>
+                    <span class="text-xs opacity-70">สร้างด้วย HTML, CSS และ JavaScript</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                // Close mobile menu if open
+                if (mobileMenu.classList.contains('open')) {
+                    mobileMenu.classList.remove('open');
+                }
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Typing animation
+        const typed = new Typed('#typed', {
+            strings: ['Manatchai Khamwan', 'มนัสชัย คำหวาน'],
+            typeSpeed: 50,
+            backSpeed: 30,
+            loop: true,
+            showCursor: true,
+            cursorChar: '|',
+            autoInsertCss: true
+        });
+
+        // Scroll animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('section-show');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        document.querySelectorAll('.section-hidden').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Particles effect
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = window.innerWidth < 768 ? 20 : 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+
+                // Random size
+                const size = Math.random() * 5 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+
+                // Random position
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+
+                // Random animation duration
+                const duration = Math.random() * 20 + 10;
+                particle.style.animationDuration = `${duration}s`;
+
+                // Random delay
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+
+                // Random color
+                const colors = ['rgba(59, 130, 246, 0.7)', 'rgba(16, 185, 129, 0.7)', 'rgba(245, 158, 11, 0.7)'];
+                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.backgroundColor = randomColor;
+
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Initialize particles when page loads
+        window.addEventListener('load', createParticles);
+
+        // Form submission
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+
+</body>
+
+</html>
