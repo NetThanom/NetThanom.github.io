@@ -136,11 +136,6 @@
             }
         }
 
-        /* Typing Animation */
-        .typed-cursor {
-            opacity: 1;
-            animation: blink 0.7s infinite;
-        }
 
         @keyframes blink {
             0% {
@@ -273,16 +268,6 @@
     <section id="home" class="hero flex items-center justify-center relative pt-16">
         <div class="particles" id="particles"></div>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
-            <div class="profile-container mb-8">
-                <div class="glow-effect"></div>
-                <div class="pulse-effect"></div>
-            </div>
-
-            <h1 class="text-4xl md:text-6xl font-bold mb-4">
-                <span id="typed" class="gradient-text"></span>
-            </h1>
-            
         </div>
     </section>
 
@@ -402,17 +387,6 @@
                     behavior: 'smooth'
                 });
             });
-        });
-
-        // Typing animation
-        const typed = new Typed('#typed', {
-            strings: ['Thanom Chatchawan', 'ถนอม ชัชวาลย์'],
-            typeSpeed: 50,
-            backSpeed: 30,
-            loop: true,
-            showCursor: true,
-            cursorChar: '|',
-            autoInsertCss: true
         });
 
         // Scroll animation
