@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio | Manatchai Khamwan</title>
+    <title>The Dungeon</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -79,14 +80,30 @@
         }
 
         @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.7; }
-            50% { transform: scale(1.05); opacity: 0.3; }
-            100% { transform: scale(1); opacity: 0.7; }
+            0% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+
+            50% {
+                transform: scale(1.05);
+                opacity: 0.3;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
         }
 
         /* Particles */
@@ -108,8 +125,15 @@
         }
 
         @keyframes float {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; }
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+            }
         }
 
         /* Typing Animation */
@@ -119,9 +143,17 @@
         }
 
         @keyframes blink {
-            0% { opacity: 1; }
-            50% { opacity: 0; }
-            100% { opacity: 1; }
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
         }
 
         /* Section Animation */
@@ -198,6 +230,7 @@
         }
     </style>
 </head>
+
 <body class="antialiased">
     <!-- Navigation -->
     <nav class="fixed w-full bg-gray-900 bg-opacity-90 backdrop-blur-sm z-50 shadow-lg">
@@ -210,26 +243,34 @@
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-8">
-                        <a href="#home" class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">หน้าแรก</a>
-                        <a href="#contact" class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">ติดต่อ</a>
+                        <a href="#home"
+                            class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">หน้าแรก</a>
+                        <a href="#contact"
+                            class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">ติดต่อ</a>
                     </div>
                 </div>
                 <div class="md:hidden">
-                    <button id="mobile-menu-button" class="p-2 rounded-md text-gray-400 hover:text-white focus:outline-none">
+                    <button id="mobile-menu-button"
+                        class="p-2 rounded-md text-gray-400 hover:text-white focus:outline-none">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
                 </div>
             </div>
         </div>
-        
+
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="mobile-menu md:hidden bg-gray-900">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#home" class="block px-3 py-2 text-gray-300 hover:text-white rounded-md text-base font-medium">หน้าแรก</a>
-                <a href="#about" class="block px-3 py-2 text-gray-300 hover:text-white rounded-md text-base font-medium">เกี่ยวกับ</a>
-                <a href="#skills" class="block px-3 py-2 text-gray-300 hover:text-white rounded-md text-base font-medium">ทักษะ</a>
-                <a href="#projects" class="block px-3 py-2 text-gray-300 hover:text-white rounded-md text-base font-medium">ผลงาน</a>
-                <a href="#contact" class="block px-3 py-2 text-gray-300 hover:text-white rounded-md text-base font-medium">ติดต่อ</a>
+                <a href="#home"
+                    class="block px-3 py-2 text-gray-300 hover:text-white rounded-md text-base font-medium">หน้าแรก</a>
+                <a href="#about"
+                    class="block px-3 py-2 text-gray-300 hover:text-white rounded-md text-base font-medium">เกี่ยวกับ</a>
+                <a href="#skills"
+                    class="block px-3 py-2 text-gray-300 hover:text-white rounded-md text-base font-medium">ทักษะ</a>
+                <a href="#projects"
+                    class="block px-3 py-2 text-gray-300 hover:text-white rounded-md text-base font-medium">ผลงาน</a>
+                <a href="#contact"
+                    class="block px-3 py-2 text-gray-300 hover:text-white rounded-md text-base font-medium">ติดต่อ</a>
             </div>
         </div>
     </nav>
@@ -237,29 +278,30 @@
     <!-- Hero Section -->
     <section id="home" class="hero flex items-center justify-center relative pt-16">
         <div class="particles" id="particles"></div>
-        
+
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
             <div class="profile-container mb-8">
                 <div class="glow-effect"></div>
                 <div class="pulse-effect"></div>
                 <div class="profile-circle">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" 
-                         alt="Manatchai Khamwan" 
-                         class="profile-img">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80"
+                        alt="Manatchai Khamwan" class="profile-img">
                 </div>
             </div>
-            
+
             <h1 class="text-4xl md:text-6xl font-bold mb-4">
                 <span id="typed" class="gradient-text"></span>
             </h1>
-            
+
             <h2 class="text-xl md:text-2xl text-gray-400 mb-6">นักพัฒนาเว็บไซต์และนักออกแบบ UI/UX</h2>
-            
+
             <div class="flex justify-center space-x-4">
-                <a href="#contact" class="px-6 py-3 bg-gradient-to-r from-blue-500 to-teal-500 text-white rounded-full font-medium hover:opacity-90 transition duration-300 transform hover:scale-105">
+                <a href="#contact"
+                    class="px-6 py-3 bg-gradient-to-r from-blue-500 to-teal-500 text-white rounded-full font-medium hover:opacity-90 transition duration-300 transform hover:scale-105">
                     ติดต่อฉัน
                 </a>
-                <a href="#projects" class="px-6 py-3 border border-blue-500 text-blue-400 rounded-full font-medium hover:bg-blue-500 hover:bg-opacity-10 transition duration-300 transform hover:scale-105">
+                <a href="#projects"
+                    class="px-6 py-3 border border-blue-500 text-blue-400 rounded-full font-medium hover:bg-blue-500 hover:bg-opacity-10 transition duration-300 transform hover:scale-105">
                     ดูผลงาน
                 </a>
             </div>
@@ -268,45 +310,124 @@
 
     <!-- Contact Section -->
     <section id="contact" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto section-hidden">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4 gradient-text">ติดต่อฉัน</h2>
+        <div class="text-center mb-16" data-aos="fade-left">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title gradient-text">ติดต่อฉัน</h2>
             <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-teal-500 mx-auto"></div>
+            <p class="text-gray-400 max-w-2xl mx-auto mt-4">สนใจทำงานด้วยกันหรือมีคำถาม? ส่งข้อความมาหาผมได้เลย</p>
         </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12" data-aos="zoom-in">
+            <div class="content-box">
                 <h3 class="text-2xl font-bold mb-6">ส่งข้อความถึงฉัน</h3>
-                
-                <form class="space-y-6">
+
+                <!-- ฟอร์มติดต่อ -->
+                <form id="contactForm" action="https://formsubmit.co/tcn.nett@gmail.com" method="POST"
+                    class="space-y-6">
+                    <!-- ป้องกันการ redirect ไปยังหน้า Thank You -->
+                    <input type="hidden" name="_redirect" value="javascript:void(0)">
+                    <input type="hidden" name="_captcha" value="false">
+
                     <div>
                         <label for="name" class="block text-sm font-medium text-gray-400 mb-1">ชื่อของคุณ</label>
-                        <input type="text" id="name" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="ชื่อของคุณ">
+                        <input type="text" id="name" name="name" required
+                            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="ชื่อของคุณ">
                     </div>
-                    
+
                     <div>
                         <label for="email" class="block text-sm font-medium text-gray-400 mb-1">อีเมล</label>
-                        <input type="email" id="email" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="อีเมลของคุณ">
+                        <input type="email" id="email" name="email" required
+                            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="อีเมลของคุณ">
                     </div>
-                    
+
                     <div>
                         <label for="subject" class="block text-sm font-medium text-gray-400 mb-1">หัวข้อ</label>
-                        <input type="text" id="subject" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="หัวข้อ">
+                        <input type="text" id="subject" name="subject" required
+                            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="หัวข้อ">
                     </div>
-                    
+
                     <div>
                         <label for="message" class="block text-sm font-medium text-gray-400 mb-1">ข้อความ</label>
-                        <textarea id="message" rows="5" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="ข้อความของคุณ"></textarea>
+                        <textarea id="message" name="message" rows="5" required
+                            class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="ข้อความของคุณ"></textarea>
                     </div>
-                    
-                    <button type="submit" class="w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-teal-500 text-white rounded-lg font-medium hover:opacity-90 transition duration-300">
-                        ส่งข้อความ
+
+                    <button type="submit"
+                        class="btn-primary w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-teal-500 text-white rounded-lg font-medium hover:opacity-90 transition duration-300 transform hover:scale-105">
+                        <i class="fas fa-paper-plane mr-2"></i> ส่งข้อความ
                     </button>
                 </form>
+
+                <!-- SweetAlert2 -->
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+                <script>
+                    // ฟังก์ชันแจ้งเตือนส่งสำเร็จ
+                    function showSuccessAlert() {
+                        Swal.fire({
+                            icon: 'success',
+                            title: '✅ ส่งข้อความเรียบร้อยแล้ว!',
+                            html: '<b style="color:#0dcaf0;">ถึงคุณ ถนอม 💙</b>',
+                            background: '#1e1e2f',
+                            color: '#ffffff',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            customClass: {
+                                popup: 'animated tada border-glow'
+                            }
+                        });
+                    }
+
+                    // ฟังก์ชันแจ้งเตือนเมื่อเกิดข้อผิดพลาด
+                    function showErrorAlert(message) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'เกิดข้อผิดพลาด',
+                            text: message,
+                            background: '#2c2c3e',
+                            color: '#ffdddd'
+                        });
+                    }
+
+                    // จัดการการส่งฟอร์มด้วย JavaScript (AJAX)
+                    const form = document.getElementById('contactForm');
+
+                    form.addEventListener('submit', async function (e) {
+                        e.preventDefault(); // หยุดการโหลดหน้าใหม่
+
+                        const formData = new FormData(form);
+
+                        try {
+                            const response = await fetch("https://formsubmit.co/ajax/tcn.nett@gmail.com", {
+                                method: "POST",
+                                headers: { 'Accept': 'application/json' },
+                                body: formData
+                            });
+
+                            if (response.ok) {
+                                form.reset();        // ล้างข้อมูลในฟอร์ม
+                                showSuccessAlert();  // แสดงข้อความสำเร็จ
+                            } else {
+                                const errorData = await response.json();
+                                throw new Error(errorData.message || 'ส่งข้อมูลไม่สำเร็จ');
+                            }
+                        } catch (error) {
+                            showErrorAlert(error.message);
+                        }
+                    });
+                </script>
+
+
+
             </div>
-            
-            <div>
+
+            <div class="content-box" data-aos="zoom-in-up">
                 <h3 class="text-2xl font-bold mb-6">ข้อมูลติดต่อ</h3>
-                
+
                 <div class="space-y-6">
                     <div class="flex items-start">
                         <div class="flex-shrink-0 text-blue-400 text-xl mr-4 mt-1">
@@ -314,58 +435,64 @@
                         </div>
                         <div>
                             <h4 class="text-lg font-medium mb-1">ที่อยู่</h4>
-                            <p class="text-gray-400">123 ถนนรัชดาภิเษก, เขตห้วยขวาง, กรุงเทพฯ 10310</p>
+                            <p class="text-gray-400">66/685 Aspire Erawan Prime ต.ปากน้ำ อ.เมืองสมุทรปราการ
+                                จ.สมุทรปราการ</p>
                         </div>
                     </div>
-                    
+
                     <div class="flex items-start">
                         <div class="flex-shrink-0 text-blue-400 text-xl mr-4 mt-1">
                             <i class="fas fa-envelope"></i>
                         </div>
                         <div>
                             <h4 class="text-lg font-medium mb-1">อีเมล</h4>
-                            <p class="text-gray-400">manatchai@example.com</p>
+                            <p class="text-gray-400">tcn.nett@gmail.com</p>
                         </div>
                     </div>
-                    
+
                     <div class="flex items-start">
                         <div class="flex-shrink-0 text-blue-400 text-xl mr-4 mt-1">
                             <i class="fas fa-phone-alt"></i>
                         </div>
                         <div>
                             <h4 class="text-lg font-medium mb-1">โทรศัพท์</h4>
-                            <p class="text-gray-400">+66 12 345 6789</p>
+                            <p class="text-gray-400">093-086-9912</p>
                         </div>
                     </div>
-                    
+
                     <div class="flex items-start">
                         <div class="flex-shrink-0 text-blue-400 text-xl mr-4 mt-1">
                             <i class="fas fa-globe"></i>
                         </div>
                         <div>
                             <h4 class="text-lg font-medium mb-1">เว็บไซต์</h4>
-                            <p class="text-gray-400">www.manatchai.dev</p>
+                            <p class="text-gray-400">https://netthanom.github.io/</p>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="mt-8">
                     <h4 class="text-lg font-medium mb-4">ติดตามฉันบนโซเชียลมีเดีย</h4>
-                    
+
                     <div class="flex space-x-4">
-                        <a href="#" class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center text-xl text-gray-400 hover:text-blue-400 hover:bg-gray-700 transition duration-300">
+                        <a href="https://www.facebook.com/Thanom.nett/"
+                            class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center text-xl text-gray-400 hover:text-blue-400 hover:bg-gray-700 transition duration-300">
                             <i class="fab fa-facebook-f"></i>
                         </a>
-                        <a href="#" class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center text-xl text-gray-400 hover:text-blue-400 hover:bg-gray-700 transition duration-300">
+                        <!-- <a href="#"
+                            class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center text-xl text-gray-400 hover:text-blue-400 hover:bg-gray-700 transition duration-300">
                             <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center text-xl text-gray-400 hover:text-blue-400 hover:bg-gray-700 transition duration-300">
+                        </a> -->
+                        <a href="https://www.instagram.com/cnezz.2493/"
+                            class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center text-xl text-gray-400 hover:text-blue-400 hover:bg-gray-700 transition duration-300">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="#" class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center text-xl text-gray-400 hover:text-blue-400 hover:bg-gray-700 transition duration-300">
+                        <!-- <a href="#"
+                            class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center text-xl text-gray-400 hover:text-blue-400 hover:bg-gray-700 transition duration-300">
                             <i class="fab fa-linkedin-in"></i>
-                        </a>
-                        <a href="#" class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center text-xl text-gray-400 hover:text-blue-400 hover:bg-gray-700 transition duration-300">
+                        </a> -->
+                        <a href="https://github.com/NetThanom"
+                            class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center text-xl text-gray-400 hover:text-blue-400 hover:bg-gray-700 transition duration-300">
                             <i class="fab fa-github"></i>
                         </a>
                     </div>
@@ -379,11 +506,13 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="mb-4 md:mb-0">
-                    <span class="text-xl font-bold gradient-text">Manatchai Khamwan</span>
+                    <span class="text-xl font-bold gradient-text">Thanom Chatchawan</span>
+                    <p class="text-gray-400 text-sm mt-1">นักพัฒนาเว็บไซต์และนักออกแบบ UI/UX</p>
                 </div>
-                
-                <div class="text-gray-400 text-sm">
-                    &copy; 2023 Manatchai Khamwan. สงวนลิขสิทธิ์.
+
+                <div class="text-gray-400 text-sm text-center md:text-right">
+                    &copy; 2025 Thanom Chatchawan. สงวนลิขสิทธิ์.<br>
+                    <span class="text-xs opacity-70">สร้างด้วย HTML, CSS และ JavaScript</span>
                 </div>
             </div>
         </div>
@@ -393,30 +522,30 @@
         // Mobile menu toggle
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
-        
+
         mobileMenuButton.addEventListener('click', () => {
             mobileMenu.classList.toggle('open');
         });
-        
+
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                
+
                 // Close mobile menu if open
                 if (mobileMenu.classList.contains('open')) {
                     mobileMenu.classList.remove('open');
                 }
-                
+
                 document.querySelector(this.getAttribute('href')).scrollIntoView({
                     behavior: 'smooth'
                 });
             });
         });
-        
+
         // Typing animation
         const typed = new Typed('#typed', {
-            strings: ['Manatchai Khamwan', 'นักพัฒนาเว็บไซต์', 'นักออกแบบ UI/UX'],
+            strings: ['Thanom Chatchawan', 'ถนอม ชัชวาลย์'],
             typeSpeed: 50,
             backSpeed: 30,
             loop: true,
@@ -424,7 +553,7 @@
             cursorChar: '|',
             autoInsertCss: true
         });
-        
+
         // Scroll animation
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -435,42 +564,56 @@
         }, {
             threshold: 0.1
         });
-        
+
         document.querySelectorAll('.section-hidden').forEach(section => {
             observer.observe(section);
         });
-        
+
         // Particles effect
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
-            const particleCount = 30;
-            
+            const particleCount = window.innerWidth < 768 ? 20 : 50;
+
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.classList.add('particle');
-                
+
                 // Random size
                 const size = Math.random() * 5 + 2;
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
-                
+
                 // Random position
                 particle.style.left = `${Math.random() * 100}%`;
                 particle.style.top = `${Math.random() * 100}%`;
-                
+
                 // Random animation duration
                 const duration = Math.random() * 20 + 10;
                 particle.style.animationDuration = `${duration}s`;
-                
+
                 // Random delay
                 particle.style.animationDelay = `${Math.random() * 5}s`;
-                
+
+                // Random color
+                const colors = ['rgba(59, 130, 246, 0.7)', 'rgba(16, 185, 129, 0.7)', 'rgba(245, 158, 11, 0.7)'];
+                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.backgroundColor = randomColor;
+
                 particlesContainer.appendChild(particle);
             }
         }
-        
+
         // Initialize particles when page loads
         window.addEventListener('load', createParticles);
+
+        // Form submission
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
     </script>
 </body>
+
 </html>
