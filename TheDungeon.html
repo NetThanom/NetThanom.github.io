@@ -484,6 +484,7 @@
 
         var script = document.createElement("script");
         script.src = loaderUrl;
+        script.crossOrigin = "anonymous";
         script.onload = () => {
             createUnityInstance(canvas, config, (progress) => {
                 progressBar.style.width = (100 * progress) + "%";
