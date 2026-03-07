@@ -1,0 +1,2 @@
+AddEncoding gzip .gz
+AddType application/wasm .wasm
