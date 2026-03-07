@@ -469,14 +469,14 @@
 
         var config = {
             dataUrl: buildUrl + "/Game.data.gz",
-            frameworkUrl: buildUrl + "/Game.framework.js.gz",
+            frameworkUrl: buildUrl + "/Framework/Game.framework.js.gz",
             codeUrl: buildUrl + "/Game.wasm.gz",
             streamingAssetsUrl: "StreamingAssets",
             companyName: "DefaultCompany",
             productName: "TheDungeon",
             productVersion: "1.0",
         };
-        
+
         var canvas = document.querySelector("#unity-canvas");
         var loadingBar = document.querySelector("#unity-loading-bar");
         var progressBar = document.querySelector("#unity-progress-bar");
