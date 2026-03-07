@@ -269,33 +269,12 @@
         <div class="particles" id="particles"></div>
 
         <!-- Unity Game Container -->
-        <div style="
-        position: relative;
-        z-index: 10;
-        width: 1280px;
-        height: 720px;
-        overflow: hidden;
-    ">
-            <!-- Wrapper scales 1920x1080 down to 1280x720 (scale = 720/1080 = 0.6667) -->
-            <div style="
-            width: 1920px;
-            height: 1080px;
-            transform: scale(0.6667);
-            transform-origin: top left;
-        ">
-                <canvas id="unity-canvas" width="1920" height="1080" style="display: block; background: #000;"></canvas>
-            </div>
+        <div style="position: relative; z-index: 10;">
+            <canvas id="unity-canvas" width="1280" height="720" style="display: block; background: #000;"></canvas>
 
-            <!-- Loading Bar (stays at display size, not scaled) -->
-            <div id="unity-loading-bar" style="
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            color: white;
-            z-index: 20;
-        ">
+            <!-- Loading Bar -->
+            <div id="unity-loading-bar"
+                style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white;">
                 <div style="margin-bottom: 10px;">Loading...</div>
                 <div style="width: 300px; height: 10px; background: #333; border-radius: 5px; overflow: hidden;">
                     <div id="unity-progress-bar"
