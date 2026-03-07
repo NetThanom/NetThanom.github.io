@@ -268,6 +268,19 @@
     <section id="home" class="hero flex items-center justify-center relative pt-16">
         <div class="particles" id="particles"></div>
 
+        <!-- Unity Game Container -->
+        <div style="position: relative; z-index: 10;">
+            <canvas id="unity-canvas" width="960" height="600" style="display: block; background: #000;"></canvas>
+
+            <!-- Loading Bar -->
+            <div id="unity-loading-bar"
+                style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white;">
+                <div style="margin-bottom: 10px;">Loading...</div>
+                <div style="width: 300px; height: 10px; background: #333; border-radius: 5px; overflow: hidden;">
+                    <div id="unity-progress-bar"
+                        style="width: 0%; height: 100%; background: #fff; transition: width 0.3s;"></div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -448,6 +461,38 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init();
+    </script>
+
+    <script>
+        var buildUrl = "Build"; // ชื่อโฟลเดอร์ Build
+        var loaderUrl = buildUrl + "/ชื่อเกม.loader.js"; // ⚠️ เปลี่ยนชื่อให้ตรง
+
+        var config = {
+            dataUrl: buildUrl + "/ชื่อเกม.data.gz",         // ⚠️ เปลี่ยนชื่อให้ตรง
+            frameworkUrl: buildUrl + "/ชื่อเกม.framework.js.gz", // ⚠️ เปลี่ยนชื่อให้ตรง
+            codeUrl: buildUrl + "/ชื่อเกม.wasm.gz",          // ⚠️ เปลี่ยนชื่อให้ตรง
+            streamingAssetsUrl: "StreamingAssets",
+            companyName: "DefaultCompany",
+            productName: "ชื่อเกม",
+            productVersion: "1.0",
+        };
+
+        var canvas = document.querySelector("#unity-canvas");
+        var loadingBar = document.querySelector("#unity-loading-bar");
+        var progressBar = document.querySelector("#unity-progress-bar");
+
+        var script = document.createElement("script");
+        script.src = loaderUrl;
+        script.onload = () => {
+            createUnityInstance(canvas, config, (progress) => {
+                progressBar.style.width = (100 * progress) + "%";
+            }).then((unityInstance) => {
+                loadingBar.style.display = "none"; // ซ่อน loading bar เมื่อโหลดเสร็จ
+            }).catch((message) => {
+                alert("Error: " + message);
+            });
+        };
+        document.body.appendChild(script);
     </script>
 </body>
 
