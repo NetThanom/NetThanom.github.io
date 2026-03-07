@@ -268,8 +268,10 @@
     <section id="home" class="hero flex items-center justify-center relative pt-16">
         <div class="particles" id="particles"></div>
 
-        <!-- Unity Game Container -->
-        <div style="position: relative; z-index: 10;">
+        <div
+            style="position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; gap: 20px;">
+
+            <!-- Unity Game Container -->
             <canvas id="unity-canvas" width="1280" height="720" style="display: block; background: #000;"></canvas>
 
             <!-- Loading Bar -->
@@ -281,13 +283,13 @@
                         style="width: 0%; height: 100%; background: #fff; transition: width 0.3s;"></div>
                 </div>
             </div>
-        </div>
 
-        <a href="https://drive.google.com/uc?export=download&id=1PY3S8xhFaZMpnvo87A4LLcD1zS-wA0Fe"
-            download="C_Thanom_Chatchawan.pdf"
-            class="btn-primary px-6 py-3 bg-gradient-to-r from-blue-500 to-teal-500 text-white rounded-full font-medium hover:opacity-90 transition duration-300">
-            <i class="fas fa-download mr-2"></i> ดาวน์โหลดตัวเกม (The Dungeon)
-        </a>
+            <!-- Download Button (ใต้ game ตรงกลาง) -->
+            <a href="https://drive.google.com/uc?export=download&id=1PY3S8xhFaZMpnvo87A4LLcD1zS-wA0Fe"
+                class="btn-primary px-6 py-3 bg-gradient-to-r from-blue-500 to-teal-500 text-white rounded-full font-medium hover:opacity-90 transition duration-300">
+                <i class="fas fa-download mr-2"></i> ดาวน์โหลดตัวเกม (The Dungeon)
+            </a>
+        </div>
     </section>
 
     <!-- Contact Section -->
